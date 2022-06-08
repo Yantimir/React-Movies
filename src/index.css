@@ -28,3 +28,18 @@ nav {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
 }
+
+.search-btn {
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    background-color: #e57373;
+}
+
+.search-btn:hover {
+    background-color: #cf6868;
+}
+
+.search-btn:focus {
+    background-color: #db5252;
+}
