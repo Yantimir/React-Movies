@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/React-Movies/static/css/main.14558e3e.css",
+    "main.js": "/React-Movies/static/js/main.c9e77821.js",
+    "static/media/materialize.svg": "/React-Movies/static/media/materialize.1f1d42f02aa69a15aa006114bfcb609d.svg",
+    "index.html": "/React-Movies/index.html",
+    "main.14558e3e.css.map": "/React-Movies/static/css/main.14558e3e.css.map",
+    "main.c9e77821.js.map": "/React-Movies/static/js/main.c9e77821.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.14558e3e.css",
+    "static/js/main.c9e77821.js"
+  ]
+}
