@@ -13,7 +13,7 @@ class Api {
             .then(onResponse)
     }
     // для поиска фильмов
-    searchMovies(str, type = "all") {
+    searchMovies(str = "matrix", type = "all") {
         return fetch(`${this._baseUrl}/?apikey=${this._token}&s=${str}${
             type !== "all" ? `&type=${type}` : ""}`)
             .then(onResponse)
