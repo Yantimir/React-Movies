@@ -22,7 +22,7 @@ class Api {
 }
 
 const config = {
-    baseUrl: "http://www.omdbapi.com",
+    baseUrl: "https://www.omdbapi.com",
     token: `${API_KEY}`
 }
 
