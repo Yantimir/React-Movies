@@ -7,28 +7,24 @@ export const Search = () => {
         searchQuery,
         setSearchQuery,
         typeFilter,
-        setTypeFilter,
-        searchMovies
+        handleClickInputFilter,
+        handleRequest
     } = useContext(AppContext);
 
     const handleKey = (e) => {
         if (e.key === "Enter" && searchQuery !== "") {
-            searchMovies(searchQuery, typeFilter);
+            handleRequest(searchQuery, typeFilter);
         }
     }
 
-    const handleFilter = (e) => {
-        setTypeFilter(e.target.dataset.type);
-        // setTypeFilter(
-        //     (e) => ({e.target.dataset.type}), 
-        //     () => {searchMovies(searchQuery, typeFilter)
-        // });
-        searchMovies(searchQuery, typeFilter);
-    }
+    // const handleFilter = (e) => {
+    //     setTypeFilter(e.target.dataset.type);
+    //     handleRequest(searchQuery, typeFilter);
+    // }
 
-    const handleClickInputFilter = () => {
-        searchMovies(searchQuery, typeFilter);
-    }
+    // const handleClickInputFilter = () => {
+    //     handleRequest(searchQuery, typeFilter);
+    // }
 
     return (
         <div className="row">
@@ -41,7 +37,7 @@ export const Search = () => {
                     onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
                     onKeyDown={handleKey}
                 />
-                <button className="btn search-btn" onClick={() => searchQuery !== "" && searchMovies(searchQuery, typeFilter)}>Search</button>
+                <button className="btn search-btn" onClick={() => searchQuery !== "" && handleRequest(searchQuery, typeFilter)}>Search</button>
             </div>
             <div>
                 <label>
@@ -50,9 +46,8 @@ export const Search = () => {
                         name="type"
                         type="radio"
                         data-type="all"
-                        onChange={handleFilter}
-                        onClick={handleClickInputFilter}
-                        checked={typeFilter === "all"}
+                        onChange={handleClickInputFilter}
+                        checked={typeFilter && typeFilter === "all"}
                     />
                     <span>All</span>
                 </label>
@@ -62,9 +57,8 @@ export const Search = () => {
                         name="type"
                         type="radio"
                         data-type="movie"
-                        onChange={handleFilter}
-                        onClick={handleClickInputFilter}
-                        checked={typeFilter === "movie"}
+                        onChange={handleClickInputFilter}
+                        checked={typeFilter && typeFilter === "movie"}
                     />
                     <span>Movies only</span>
                 </label>
@@ -74,9 +68,8 @@ export const Search = () => {
                         name="type"
                         type="radio"
                         data-type="series"
-                        onChange={handleFilter}
-                        onClick={handleClickInputFilter}
-                        checked={typeFilter === "series"}
+                        onChange={handleClickInputFilter}
+                        checked={typeFilter && typeFilter === "series"}
                     />
                     <span>Series only</span>
                 </label>

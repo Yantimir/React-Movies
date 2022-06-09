@@ -5,10 +5,10 @@ export const AppContext = React.createContext({
     isLoading: false,
     searchQuery: "",
     setSearchQuery: () => {},
-    typeFilter: "all",
     setTypeFilter: () => {},
     searchMovies: () => {},
-    // handleInputChange: () => {}
+    handleRequest: () => {},
+    handleClickInputFilter: () => {}
 });
 
 AppContext.displayName = "AppContext";

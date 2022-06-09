@@ -1,33 +1,29 @@
+const API_KEY = process.env.REACT_APP_API_KEY;
 const onResponse = (response) => {
     return response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`);
 }
-
-const onError = (err) => {
-    console.log(`${err}`);
-}
-
 class Api {
-    constructor({ baseUrl }) {
+    constructor({ baseUrl, token }) {
         this._baseUrl = baseUrl;
-        // this._token = token;
+        this._token = token;
     }
     // получение всех фильмов
     getMoviesList() {
-        return fetch(`${this._baseUrl}/?apikey=28dc1872&s=matrix`)
+        return fetch(`${this._baseUrl}/?apikey=${this._token}&s=matrix`)
             .then(onResponse)
-            .catch(onError)
     }
     // для поиска фильмов
-    searchMivies(str, type = "all") {
-        return fetch(`${this._baseUrl}/?apikey=28dc1872&s=${str}${type !== "all" ? `&type=${type}` : ""}`)
+    searchMovies(str, type = "all") {
+        return fetch(`${this._baseUrl}/?apikey=${this._token}&s=${str}${
+            type !== "all" ? `&type=${type}` : ""}`)
             .then(onResponse)
-            .catch(onError)
     }
 
 }
 
 const config = {
     baseUrl: "http://www.omdbapi.com",
+    token: `${API_KEY}`
 }
 
 const api = new Api(config);

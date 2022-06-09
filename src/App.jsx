@@ -6,58 +6,52 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
 
-
 function App() {
 
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [typeFilter, setTypeFilter] = useState("all");
-    // console.log(typeFilter)
 
     useEffect(() => {
         setIsLoading(!isLoading);
         api.getMoviesList()
-            .then(dataMovies => setMovies(dataMovies.Search))
-            .catch(err => console.error(err))
+            .then((dataMovies) => setMovies(dataMovies.Search))
+            .catch((err) => console.error(err))
             .finally(() => setIsLoading(isLoading))
-        // eslint-disable-next-line    
+        // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        handleRequest(searchQuery, typeFilter);
+        // eslint-disable-next-line
+    }, [typeFilter]);
 
-    // useEffect(() => {
-    //     handleRequest();
-    //     // eslint-disable-next-line 
-    // }, [searchQuery]);
+    const handleClickInputFilter = (e) => {
+        setTypeFilter(e.target.dataset.type);
+    };
 
-    // const handleInputChange = (inputValue) => {
-    //     setSearchQuery(inputValue);
-    // }
-    // const handleRequest = useCallback(() => {
-    //     api.searchProducts(searchQuery)
-    //         .then(dataMovies => setMovies(dataMovies.Search))
-    //         .catch(err => console.error(err))
-    // }, [searchQuery])
-    const searchMovies = (str, type = "all") => {
-        fetch(`http://www.omdbapi.com/?apikey=28dc1872&s=${str}${type !== "all" ? `&type=${type}` : ""}`)
-            .then(res => res.json())
-            .then(dataMovies => setMovies(dataMovies.Search))
+    const handleRequest = useCallback(() => {
+        setIsLoading(!isLoading);
+        api.searchMovies(searchQuery, typeFilter)
+            .then((dataMovies) => setMovies(dataMovies.Search))
             .catch((err) => console.error(err))
-    }
-
-
+            .finally(() => setIsLoading(isLoading))
+        // eslint-disable-next-line
+    }, [searchQuery, typeFilter]);
 
     return (
-        <AppContext.Provider value={{
-            movies,
-            isLoading,
-            searchQuery,
-            setSearchQuery,
-            typeFilter,
-            setTypeFilter,
-            searchMovies,
-            // handleInputChange
-        }}>
+        <AppContext.Provider
+            value={{
+                movies,
+                isLoading,
+                searchQuery,
+                setSearchQuery,
+                typeFilter,
+                handleRequest,
+                handleClickInputFilter,
+            }}
+        >
             <div className="body__container">
                 <Header />
                 <Main />
