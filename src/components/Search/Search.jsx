@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../context/appContext";
 
-export const Search = ({ handleSearchQuery, searchMovies }) => {
+export const Search = () => {
 
-    // const [searchQuery, setSearchQuery] = useState("");
+    const {
+        searchQuery,
+        setSearchQuery,
+        typeFilter,
+        setTypeFilter,
+        searchMovies
+    } = useContext(AppContext);
 
-    // const handleKey = (event) => {
-    //     if (event.key === "Enter") {
-    //         handleSearchQuery(inputValue);
-    //     }
-    // }
-    const handleKey = (event) => {
-        if (event.key === "Enter") {
-            searchMovies();
+    const handleKey = (e) => {
+        if (e.key === "Enter" && searchQuery !== "") {
+            searchMovies(searchQuery, typeFilter);
         }
     }
-    // const searchMovies = (str) => {
-    //     fetch(`http://www.omdbapi.com/?apikey=28dc1872&s=${str}`)
-    //         .then(res => res.json())
-    //         .then(dataMovies => setMovies(dataMovies.Search))
-    //         .catch((err)=> console.error(err))
-    // }
+
+    const handleFilter = (e) => {
+        setTypeFilter(e.target.dataset.type);
+        // setTypeFilter(
+        //     (e) => ({e.target.dataset.type}), 
+        //     () => {searchMovies(searchQuery, typeFilter)
+        // });
+        searchMovies(searchQuery, typeFilter);
+    }
+
+    const handleClickInputFilter = () => {
+        searchMovies(searchQuery, typeFilter);
+    }
 
     return (
         <div className="row">
@@ -28,11 +37,49 @@ export const Search = ({ handleSearchQuery, searchMovies }) => {
                     className="validate"
                     placeholder="search..."
                     type="search"
-                    // value={searchQuery}
-                    onChange={(e) => handleSearchQuery(e.target.value.toLowerCase())}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
                     onKeyDown={handleKey}
                 />
-                <button className="btn search-btn" onClick={searchMovies}>Search</button>
+                <button className="btn search-btn" onClick={() => searchQuery !== "" && searchMovies(searchQuery, typeFilter)}>Search</button>
+            </div>
+            <div>
+                <label>
+                    <input
+                        className="with-gap"
+                        name="type"
+                        type="radio"
+                        data-type="all"
+                        onChange={handleFilter}
+                        onClick={handleClickInputFilter}
+                        checked={typeFilter === "all"}
+                    />
+                    <span>All</span>
+                </label>
+                <label>
+                    <input
+                        className="with-gap"
+                        name="type"
+                        type="radio"
+                        data-type="movie"
+                        onChange={handleFilter}
+                        onClick={handleClickInputFilter}
+                        checked={typeFilter === "movie"}
+                    />
+                    <span>Movies only</span>
+                </label>
+                <label>
+                    <input
+                        className="with-gap"
+                        name="type"
+                        type="radio"
+                        data-type="series"
+                        onChange={handleFilter}
+                        onClick={handleClickInputFilter}
+                        checked={typeFilter === "series"}
+                    />
+                    <span>Series only</span>
+                </label>
             </div>
         </div>
     )

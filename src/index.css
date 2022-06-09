@@ -43,3 +43,7 @@ nav {
 .search-btn:focus {
     background-color: #db5252;
 }
+
+label:not(:last-child) {
+    margin-right: 1rem;
+}
