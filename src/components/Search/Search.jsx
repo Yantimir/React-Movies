@@ -13,7 +13,7 @@ export const Search = () => {
 
     const handleKey = (e) => {
         if (e.key === "Enter" && searchQuery !== "") {
-            handleRequest(searchQuery, typeFilter);
+            handleRequest && handleRequest(searchQuery, typeFilter);
         }
     }
 
@@ -37,7 +37,7 @@ export const Search = () => {
                     onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
                     onKeyDown={handleKey}
                 />
-                <button className="btn search-btn" onClick={() => searchQuery !== "" && handleRequest(searchQuery, typeFilter)}>Search</button>
+                <button className="btn search-btn" onClick={() => searchQuery !== "" && handleRequest && handleRequest(searchQuery, typeFilter)}>Search</button>
             </div>
             <div>
                 <label>

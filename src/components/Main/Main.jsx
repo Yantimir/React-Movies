@@ -6,13 +6,13 @@ import { Preloader } from "../Preloader/Preloader";
 
 export const Main = () => {
 
-    const {movies, isLoading} = useContext(AppContext);
+    const { movies, isLoading } = useContext(AppContext);
 
     return (
         <main className="main__container content">
             <Search />
             {isLoading && <Preloader />}
-            {<Movies movies={movies} />}
+            {movies && <Movies movies={movies} />}
         </main>
     )
 }

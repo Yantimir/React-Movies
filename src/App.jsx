@@ -16,16 +16,19 @@ function App() {
     useEffect(() => {
         setIsLoading(!isLoading);
         api.getMoviesList()
-            .then((dataMovies) => setMovies(dataMovies.Search))
-            .catch((err) => console.error(err))
+            .then((dataMovies) => setMovies(dataMovies?.Search))
+            .catch((err) => {
+                console.error(err); 
+                setIsLoading(isLoading);
+            })
             .finally(() => setIsLoading(isLoading))
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
-        handleRequest(searchQuery, typeFilter);
+        handleRequest && handleRequest(searchQuery, typeFilter);
         // eslint-disable-next-line
-    }, [typeFilter]);
+    }, [searchQuery, typeFilter]);
 
     const handleClickInputFilter = (e) => {
         setTypeFilter(e.target.dataset.type);
@@ -34,8 +37,11 @@ function App() {
     const handleRequest = useCallback(() => {
         setIsLoading(!isLoading);
         api.searchMovies(searchQuery, typeFilter)
-            .then((dataMovies) => setMovies(dataMovies.Search))
-            .catch((err) => console.error(err))
+            .then((dataMovies) => setMovies(dataMovies?.Search))
+            .catch((err) => {
+                console.error(err); 
+                setIsLoading(isLoading);
+            })
             .finally(() => setIsLoading(isLoading))
         // eslint-disable-next-line
     }, [searchQuery, typeFilter]);

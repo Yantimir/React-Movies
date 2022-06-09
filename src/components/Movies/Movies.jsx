@@ -9,7 +9,7 @@ export const Movies = () => {
     return <div className="movies">
         {
             movies?.length 
-            ? movies?.map((movie) => (<Movie key={movie.imdbID} {...movie} />)) 
+            ? movies?.map((movie) => (<Movie key={movie?.imdbID} {...movie} />)) 
             : <h4>Nothing found</h4>
         }
     </div>;
