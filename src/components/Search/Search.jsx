@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../../context/appContext";
+import api from "../../utils/Api";
 
 export const Search = () => {
 
@@ -11,20 +12,14 @@ export const Search = () => {
         handleRequest
     } = useContext(AppContext);
 
+
+
     const handleKey = (e) => {
         if (e.key === "Enter" && searchQuery !== "") {
-            handleRequest && handleRequest(searchQuery, typeFilter);
+            api.searchMovies(searchQuery, typeFilter);
         }
     }
 
-    // const handleFilter = (e) => {
-    //     setTypeFilter(e.target.dataset.type);
-    //     handleRequest(searchQuery, typeFilter);
-    // }
-
-    // const handleClickInputFilter = () => {
-    //     handleRequest(searchQuery, typeFilter);
-    // }
 
     return (
         <div className="row">
@@ -37,7 +32,7 @@ export const Search = () => {
                     onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
                     onKeyDown={handleKey}
                 />
-                <button className="btn search-btn" onClick={() => searchQuery !== "" && handleRequest && handleRequest(searchQuery, typeFilter)}>Search</button>
+                <button className="btn search-btn" onClick={() => searchQuery !== "" && handleRequest(searchQuery, typeFilter)}>Search</button>
             </div>
             <div>
                 <label>
@@ -47,7 +42,7 @@ export const Search = () => {
                         type="radio"
                         data-type="all"
                         onChange={handleClickInputFilter}
-                        checked={typeFilter && typeFilter === "all"}
+                        checked={typeFilter === "all"}
                     />
                     <span>All</span>
                 </label>
@@ -58,7 +53,7 @@ export const Search = () => {
                         type="radio"
                         data-type="movie"
                         onChange={handleClickInputFilter}
-                        checked={typeFilter && typeFilter === "movie"}
+                        checked={typeFilter === "movie"}
                     />
                     <span>Movies only</span>
                 </label>
@@ -69,7 +64,7 @@ export const Search = () => {
                         type="radio"
                         data-type="series"
                         onChange={handleClickInputFilter}
-                        checked={typeFilter && typeFilter === "series"}
+                        checked={typeFilter === "series"}
                     />
                     <span>Series only</span>
                 </label>

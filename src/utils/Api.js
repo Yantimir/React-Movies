@@ -8,14 +8,14 @@ class Api {
         this._token = token;
     }
     // получение всех фильмов
-    async getMoviesList() {
-        const response = await fetch(`${this._baseUrl}/?apikey=${this._token}&s=spider+man`);
-        return onResponse(response);
+    getMoviesList() {
+        return fetch(`${this._baseUrl}/?apikey=${this._token}&s=spider+man`)
+            .then(onResponse)
     }
     // для поиска фильмов
-    async searchMovies(str, type = "all") {
-        const response = await fetch(`${this._baseUrl}/?apikey=${this._token}&s=${str}${type !== "all" ? `&type=${type}` : ""}`);
-        return onResponse(response);
+    searchMovies(str, type = "all") {
+        return fetch(`${this._baseUrl}/?apikey=${this._token}&s=${str}${type !== "all" ? `&type=${type}` : ""}`)
+            .then(onResponse)
     }
 
 }

@@ -14,16 +14,14 @@ function App() {
     const [typeFilter, setTypeFilter] = useState("all");
 
     useEffect(() => {
-        setIsLoading(!isLoading);
+        setIsLoading(true);
         api.getMoviesList()
             .then((dataMovies) => setMovies(dataMovies?.Search))
-            .catch((err) => {
-                console.error(err); 
-                setIsLoading(isLoading);
-            })
-            .finally(() => setIsLoading(isLoading))
+            .catch((err) => console.error(err))
+            .finally(() => setIsLoading(false))
         // eslint-disable-next-line
     }, []);
+
 
     useEffect(() => {
         handleRequest && handleRequest(searchQuery, typeFilter);
@@ -34,17 +32,14 @@ function App() {
         setTypeFilter(e.target.dataset.type);
     };
 
-    const handleRequest = useCallback(() => {
-        setIsLoading(!isLoading);
+    const handleRequest = () => {
+        setIsLoading(true);
         api.searchMovies(searchQuery, typeFilter)
             .then((dataMovies) => setMovies(dataMovies?.Search))
-            .catch((err) => {
-                console.error(err); 
-                setIsLoading(isLoading);
-            })
-            .finally(() => setIsLoading(isLoading))
+            .catch((err) => console.error(err))
+            .finally(() => setIsLoading(false))
         // eslint-disable-next-line
-    }, [searchQuery, typeFilter]);
+    };
 
     return (
         <AppContext.Provider
